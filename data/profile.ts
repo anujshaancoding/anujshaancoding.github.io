@@ -15,6 +15,14 @@ export type SkillGroup = {
 
 export type VisualKind = "matrix" | "network" | "sankey" | "gauge";
 
+export type Demo = {
+  slug: string;
+  kind: VisualKind;
+  name: string;
+  blurb: string;
+  accepts: string;
+};
+
 export const profile = {
   name: "Anuj Kumar",
   title: "Data Visualization Engineer — Power BI Custom Visuals",
@@ -23,9 +31,11 @@ export const profile = {
   location: "Daltonganj, Jharkhand, India",
   email: "anujshaan261@gmail.com",
   phone: "+91 99318 24747",
-  // Drop a square headshot at portfolio/public/profile.jpg (or change path).
-  // Leave as "" to hide the photo everywhere until you have one.
-  photo: "/profile.jpg",
+  // Face-centred square headshots for the round avatars.
+  //   photo      — avatar above your name  (cropped from img1.JPG)
+  //   photoAbout — About-section avatar     (cropped from img2.JPG)
+  photo: "/avatar-hero.jpg",
+  photoAbout: "/avatar-about.jpg",
   links: {
     github: "https://github.com/anujshaancoding",
     linkedin: "https://www.linkedin.com/in/anujshaan/",
@@ -139,6 +149,35 @@ export const profile = {
       link: "",
     },
   ],
+
+  // Interactive, data-driven demos — each opens a full page where a visitor
+  // can upload their own data file and download a generated report.
+  demos: [
+    {
+      slug: "sankey",
+      kind: "sankey",
+      name: "Sankey Flow Diagram",
+      blurb:
+        "Trace how volume moves stage to stage — funnels, budgets, energy, referrals. Upload a source-target-value file and the diagram lays itself out.",
+      accepts: "CSV · TSV · JSON",
+    },
+    {
+      slug: "network",
+      kind: "network",
+      name: "Network Graph",
+      blurb:
+        "Reveal relationships in connection data with a live force-directed graph. Drag the nodes, trace neighbours, watch the hubs surface.",
+      accepts: "CSV · TSV · JSON",
+    },
+    {
+      slug: "matrix",
+      kind: "matrix",
+      name: "Matrix Data Table",
+      blurb:
+        "Turn any spreadsheet into a sortable matrix with in-cell bars, heat-maps and row trends — it adapts to whatever columns you bring.",
+      accepts: "CSV · TSV · JSON",
+    },
+  ] as Demo[],
 
   projects: [
     {

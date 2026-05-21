@@ -4,6 +4,24 @@ import { useInView } from "@/components/useInView";
 
 type Axis = { axis: string; value: number };
 
+/** Greedy word-wrap so long axis labels stack onto a second line
+ *  instead of cropping at the SVG edge. */
+function wrapLabel(label: string, maxChars = 13): string[] {
+  const lines: string[] = [];
+  let line = "";
+  for (const word of label.split(" ")) {
+    const next = line ? `${line} ${word}` : word;
+    if (next.length > maxChars && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
 /** Signature competency radar — animates open when scrolled into view. */
 export function RadarChart({ data }: { data: Axis[] }) {
   const { ref, inView } = useInView<HTMLDivElement>(0.35);
@@ -11,6 +29,8 @@ export function RadarChart({ data }: { data: Axis[] }) {
   const c = size / 2;
   const rMax = c - 54;
   const n = data.length;
+  const padX = 46; // horizontal room in the viewBox so labels never crop
+  const lineHeight = 12;
 
   const pt = (i: number, frac: number): [number, number] => {
     const a = (Math.PI * 2 * i) / n - Math.PI / 2;
@@ -31,8 +51,8 @@ export function RadarChart({ data }: { data: Axis[] }) {
   return (
     <div ref={ref} className="flex justify-center">
       <svg
-        viewBox={`0 0 ${size} ${size}`}
-        className="h-auto w-full max-w-[340px]"
+        viewBox={`${-padX} 0 ${size + padX * 2} ${size}`}
+        className="h-auto w-full max-w-[400px]"
         role="img"
         aria-label="Core competency radar"
       >
@@ -56,6 +76,7 @@ export function RadarChart({ data }: { data: Axis[] }) {
         {data.map((d, i) => {
           const [x, y] = pt(i, 1);
           const [lx, ly] = pt(i, 1.22);
+          const lines = wrapLabel(d.axis);
           return (
             <g key={d.axis}>
               <line
@@ -76,7 +97,19 @@ export function RadarChart({ data }: { data: Axis[] }) {
                 fontFamily="var(--font-mono), monospace"
                 fill="#8a93a6"
               >
-                {d.axis}
+                {lines.map((ln, li) => (
+                  <tspan
+                    key={li}
+                    x={lx}
+                    dy={
+                      li === 0
+                        ? (-(lines.length - 1) * lineHeight) / 2
+                        : lineHeight
+                    }
+                  >
+                    {ln}
+                  </tspan>
+                ))}
               </text>
             </g>
           );

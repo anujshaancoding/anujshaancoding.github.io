@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/profile";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { SITE_URL } from "@/lib/site";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -23,12 +24,21 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  // metadataBase lets Next resolve relative canonical / OpenGraph URLs to
+  // absolute ones — required for the blog's per-post SEO tags.
+  metadataBase: new URL(SITE_URL),
   title: `${profile.name} — ${profile.title}`,
   description: profile.tagline,
   openGraph: {
     title: `${profile.name} — ${profile.title}`,
     description: profile.tagline,
     type: "website",
+    siteName: profile.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${profile.name} — ${profile.title}`,
+    description: profile.tagline,
   },
 };
 

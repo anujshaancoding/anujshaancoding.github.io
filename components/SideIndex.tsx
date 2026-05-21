@@ -6,8 +6,8 @@ const items = [
   { id: "top", label: "Intro" },
   { id: "about", label: "About" },
   { id: "visuals", label: "Visuals" },
+  { id: "demos", label: "Demos" },
   { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "contact", label: "Contact" },
 ];
