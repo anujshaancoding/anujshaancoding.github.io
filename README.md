@@ -49,14 +49,21 @@ Twitter card tags, `BlogPosting` JSON-LD structured data, and an
 auto-generated 1200×630 share image. `app/sitemap.ts` and `app/robots.ts`
 expose `/sitemap.xml` and `/robots.txt`.
 
-For correct absolute URLs on a custom domain, set `NEXT_PUBLIC_SITE_URL`
-in the Vercel project env vars (on a `*.vercel.app` URL it's detected
-automatically).
+For correct absolute URLs, set `NEXT_PUBLIC_SITE_URL` to the live site URL.
+The deploy workflow already sets it to the GitHub Pages address.
 
 ## Deploy free
 
-- Push to GitHub → import on **Vercel** (vercel.com) → live URL in ~2 min.
-- Put that URL on your resume, LinkedIn headline, and freelance profiles.
+The site auto-deploys to **GitHub Pages** via `.github/workflows/deploy.yml`:
+
+- Every push to `main` builds the static export (`output: "export"` → `out/`)
+  and publishes it. No server runs in production.
+- Live at **https://anujshaancoding.github.io** — the repo is named
+  `anujshaancoding.github.io`, so Pages serves it at the root.
+- The first run enables Pages automatically; watch progress under the
+  repo's **Actions** tab.
+
+Put that URL on your resume, LinkedIn headline, and freelance profiles.
 
 ## What to prioritize in content
 

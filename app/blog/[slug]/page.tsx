@@ -65,7 +65,7 @@ export default function PostPage({ params }: { params: Params }) {
     keywords: post.tags.join(", "),
     url: absoluteUrl(`/blog/${post.slug}`),
     mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
-    image: absoluteUrl("/opengraph-image"),
+    image: absoluteUrl("/opengraph-image.png"),
   };
 
   return (
